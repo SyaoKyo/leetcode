@@ -20,7 +20,6 @@
 * Output: 0
 * 
 * Constraints:
-*
 * 1 <= nums.length <= 104
 * -105 <= nums[i] <= 105
 *  
