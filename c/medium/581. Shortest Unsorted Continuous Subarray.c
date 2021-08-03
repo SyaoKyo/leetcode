@@ -46,3 +46,8 @@ int findUnsortedSubarray(int* nums, int numsSize)
         --j;
     return j - i + 1;
 }
+/*
+* 执行结果：通过
+* 执行用时：32 ms, 在所有 C 提交中击败了75.33%的用户
+* 内存消耗：7.4 MB, 在所有 C 提交中击败了57.71%的用户
+*/
