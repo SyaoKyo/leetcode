@@ -23,7 +23,7 @@
 * Follow up: Can you find an O(n) solution?
 */
 
-
+// 排序删重复后的结果
 void quiksort(int a[], int low, int high)
 {
     int i = low;
@@ -77,7 +77,49 @@ int thirdMax(int* nums, int numsSize)
     return max;
 }
 /*
-* ִ�н����ͨ��
-* ִ����ʱ��56 ms, ������ C �ύ�л�����8.36%���û�
-* �ڴ����ģ�5.9 MB, ������ C �ύ�л�����93.31%���û�
+* 执行结果：通过
+* 执行用时：56 ms, 在所有 C 提交中击败了8.36%的用户
+* 内存消耗：5.9 MB, 在所有 C 提交中击败了93.31%的用户
+*/
+
+// 三指针遍历一遍（满足附加条件时间复杂度 O(n)）
+int thirdMax(int* nums, int numsSize)
+{
+    if (numsSize < 3)
+    {
+        int max = nums[0] > nums[numsSize - 1] ? nums[0] : numsSize[numsSize - 1];
+        return max;
+    }
+    int first_max, second_max, third_max;
+    first_max = nums[0] > nums[1] ? nums[0] : nums[1];
+    first_max = first_max > nums[2] ? first_max : nums[2];
+    third_max = nums[0] < nums[1] ? nums[0] : nums[1];
+    third_max = third_max < nums[2] ? third_max : nums[2];
+    second_max = (first_max == nums[0] && third_max == nums[1]) || (first_max == nums[1] && third_max == nums[0]) ?
+        nums[2] : ((first_max == nums[1] && third_max == nums[2]) || (first_max == nums[2] && third_max == nums[1]) ?
+            nums[0] : nums[1]);
+    for (int i = 3; i < numsSize; i++)
+        if (nums[i] > first_max)
+        {
+            third_max = first_max == second_max ? third_max : second_max;
+            second_max = first_max;
+            first_max = nums[i];
+        }
+        else if (nums[i] != first_max && nums[i] != second_max && nums[i] > third_max)
+        {
+            third_max = first_max == second_max ? third_max : second_max;
+            second_max = first_max == second_max ? nums[i] : (second_max > nums[i] ? second_max : nums[i]);
+            third_max = third_max < nums[i] ? third_max : nums[i];
+        }
+        else if (second_max == third_max && nums[i] < third_max)
+            third_max = nums[i];
+
+    if (first_max == second_max || second_max == third_max)
+        return first_max;
+    return third_max;
+}
+/*
+* 执行结果：通过
+* 执行用时：0 ms, 在所有 C 提交中击败了100.00%的用户
+* 内存消耗：5.9 MB, 在所有 C 提交中击败了88.96%的用户
 */
