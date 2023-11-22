@@ -29,7 +29,7 @@
 
 class Solution {
 public:
-    int arithmeticTriplets(vector<int>& nums, int diff) {
+    int arithmeticTriplets(vector<int> &nums, int diff) {
         unordered_set<int> temp;
         int ans = 0;
         for (auto num: nums) {
